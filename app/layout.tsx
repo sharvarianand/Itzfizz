@@ -15,6 +15,14 @@ export const metadata: Metadata = {
     "internship",
   ],
   authors: [{ name: "Itzfizz Digital Intern" }],
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
     title: "Itzfizz Hero — Scroll-Driven Animation",
     description:
