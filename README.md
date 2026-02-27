@@ -2,11 +2,13 @@
 
 > **Internship UI Assignment** — A premium, scroll-driven hero section built for [Itzfizz Digital](https://itzfizz.com), showcasing advanced GSAP animations, pinned scroll sequences, and a polished neo-brutalist design system.
 
+### 🚀 [Live Demo: itzfizz-seven.vercel.app](https://itzfizz-seven.vercel.app/)
+
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://typescriptlang.org)
 [![GSAP](https://img.shields.io/badge/GSAP-3.14-green?logo=greensock)](https://gsap.com)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?logo=tailwindcss)](https://tailwindcss.com)
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://vercel.com)
+[![Vercel Deployment](https://img.shields.io/badge/Live_on-Vercel-black?logo=vercel)](https://itzfizz-seven.vercel.app/)
 
 ---
 
