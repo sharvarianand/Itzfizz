@@ -70,15 +70,15 @@ export default function StatCard({
             role="article"
             aria-label={`${label}: ${value}${suffix}`}
         >
-            <div className="mb-3 text-2xl">{icon}</div>
+            <div className="mb-2 md:mb-3 text-xl md:text-2xl">{icon}</div>
             <span
                 ref={numRef}
-                className="font-display block text-4xl font-extrabold tracking-tight md:text-5xl"
+                className="font-display block text-3xl font-extrabold tracking-tight md:text-5xl"
                 style={{ color: "var(--foreground)" }}
             >
                 0{suffix}
             </span>
-            <span className="mt-2 block text-xs font-semibold uppercase tracking-[0.15em] text-[var(--text-secondary)]">
+            <span className="mt-1 md:mt-2 block text-[10px] md:text-xs font-semibold uppercase tracking-[0.1em] md:tracking-[0.15em] text-[var(--text-secondary)]">
                 {label}
             </span>
         </div>

@@ -36,10 +36,7 @@ export default function HeroSection() {
     const shape6 = useRef<HTMLDivElement>(null);
     const shape7 = useRef<HTMLDivElement>(null);
 
-    const isTouch = useCallback(() => {
-        if (typeof window === "undefined") return false;
-        return "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    }, []);
+    // Removed touch guard to allow GSAP ScrollTrigger on mobile
 
     useEffect(() => {
         const hero = heroRef.current;
@@ -137,7 +134,18 @@ export default function HeroSection() {
                 //  SCROLL SETUP (called after load completes)
                 // ═══════════════════════════════════
                 function setupScrollAnimations() {
-                    if (!isTouch()) {
+                    // MatchMedia to scale down shape movement on mobile
+                    const mm = gsap.matchMedia();
+
+                    mm.add("(max-width: 768px)", () => {
+                        createScrollTimeline(true);
+                    });
+
+                    mm.add("(min-width: 769px)", () => {
+                        createScrollTimeline(false);
+                    });
+
+                    function createScrollTimeline(isMobile: boolean) {
                         // Master scroll timeline with scrub
                         const scrollTl = gsap.timeline({
                             scrollTrigger: {
@@ -250,14 +258,15 @@ export default function HeroSection() {
                         }
 
                         // ── Shapes fly away across full duration ──
+                        const mobileFactor = isMobile ? 0.4 : 1;
                         const shapeData = [
-                            { el: shape1.current, x: 200, y: -300, rot: 360 },
-                            { el: shape2.current, x: -250, y: -250, rot: -450 },
-                            { el: shape3.current, x: 150, y: -400, rot: 540 },
-                            { el: shape4.current, x: -180, y: -280, rot: -360 },
-                            { el: shape5.current, x: 220, y: -200, rot: 480 },
-                            { el: shape6.current, x: -140, y: -350, rot: -240 },
-                            { el: shape7.current, x: 100, y: -260, rot: 180 },
+                            { el: shape1.current, x: 200 * mobileFactor, y: -300 * mobileFactor, rot: 360 },
+                            { el: shape2.current, x: -250 * mobileFactor, y: -250 * mobileFactor, rot: -450 },
+                            { el: shape3.current, x: 150 * mobileFactor, y: -400 * mobileFactor, rot: 540 },
+                            { el: shape4.current, x: -180 * mobileFactor, y: -280 * mobileFactor, rot: -360 },
+                            { el: shape5.current, x: 220 * mobileFactor, y: -200 * mobileFactor, rot: 480 },
+                            { el: shape6.current, x: -140 * mobileFactor, y: -350 * mobileFactor, rot: -240 },
+                            { el: shape7.current, x: 100 * mobileFactor, y: -260 * mobileFactor, rot: 180 },
                         ];
                         shapeData.forEach(({ el, x, y, rot }, i) => {
                             if (el) {
@@ -270,13 +279,6 @@ export default function HeroSection() {
                         });
 
                         ScrollTrigger.refresh();
-                    } else {
-                        // Touch fallback
-                        gsap.to(visual, {
-                            y: -15, rotation: 3,
-                            duration: 2.5, ease: "power1.inOut",
-                            repeat: -1, yoyo: true,
-                        });
                     }
                 }
             }, hero);
@@ -289,7 +291,7 @@ export default function HeroSection() {
             const ctx = (heroRef.current as HTMLElement & { _gsapCtx?: gsap.Context })?._gsapCtx;
             if (ctx) ctx.revert();
         };
-    }, [isTouch]);
+    }, []);
 
     return (
         <section
@@ -342,10 +344,10 @@ export default function HeroSection() {
 
             {/* ── Main Content ── */}
             <div className="relative z-10 flex w-full max-w-7xl flex-col items-center px-6 text-center">
-                <div ref={headline1Ref} className="mb-2" aria-label="Welcome" style={{ perspective: "800px" }}>
+                <div ref={headline1Ref} className="mb-4 md:mb-2" aria-label="Welcome" style={{ perspective: "800px" }}>
                     <h1
-                        className="font-display font-extrabold tracking-[0.15em]"
-                        style={{ fontSize: "clamp(2.5rem, 8vw, 7rem)", lineHeight: 1, color: "var(--foreground)" }}
+                        className="font-display font-extrabold tracking-[0.05em] md:tracking-[0.15em]"
+                        style={{ fontSize: "clamp(2rem, 9vw, 7rem)", lineHeight: 1, color: "var(--foreground)" }}
                     >
                         {HEADLINE_1.split("").map((ch, i) => (
                             <span key={`w-${i}`} className="headline-letter" style={{ opacity: 0, display: "inline-block" }}>
@@ -355,12 +357,12 @@ export default function HeroSection() {
                     </h1>
                 </div>
 
-                <div ref={headline2Ref} className="mb-10 md:mb-14" aria-label="Itzfizz" style={{ perspective: "800px" }}>
+                <div ref={headline2Ref} className="mb-12 md:mb-16" aria-label="Itzfizz" style={{ perspective: "800px" }}>
                     <h2
-                        className="font-display font-extrabold tracking-[0.15em]"
+                        className="font-display font-extrabold tracking-[0.05em] md:tracking-[0.15em]"
                         style={{
-                            fontSize: "clamp(3rem, 10vw, 9rem)", lineHeight: 1,
-                            color: "var(--accent)", WebkitTextStroke: "3px var(--foreground)", paintOrder: "stroke fill",
+                            fontSize: "clamp(2.5rem, 11vw, 9rem)", lineHeight: 1,
+                            color: "var(--accent)", WebkitTextStroke: "max(1px, 0.25vw) var(--foreground)", paintOrder: "stroke fill",
                         }}
                     >
                         {HEADLINE_2.split("").map((ch, i) => (
@@ -371,7 +373,7 @@ export default function HeroSection() {
                     </h2>
                 </div>
 
-                <div ref={visualRef} className="visual-card mb-14 w-full max-w-md p-5 md:max-w-lg md:p-7" style={{ opacity: 0 }} id="visual-element">
+                <div ref={visualRef} className="visual-card mb-12 w-[90%] w-full max-w-md p-4 md:mb-20 md:max-w-lg md:p-7" style={{ opacity: 0 }} id="visual-element">
                     <div className="mb-4 flex items-center gap-2.5">
                         <div className="h-3.5 w-3.5 rounded-full border-2 border-[var(--foreground)] bg-[var(--accent)]" />
                         <div className="h-3.5 w-3.5 rounded-full border-2 border-[var(--foreground)] bg-[#FFD700]" />
@@ -430,7 +432,7 @@ export default function HeroSection() {
                     </div>
                 </div>
 
-                <div ref={statsRef} className="grid w-full max-w-4xl grid-cols-2 gap-4 md:grid-cols-4 md:gap-5" id="stats-container">
+                <div ref={statsRef} className="grid w-full max-w-4xl grid-cols-1 sm:grid-cols-2 gap-3 md:grid-cols-4 md:gap-5" id="stats-container">
                     {STATS.map((stat, i) => (
                         <StatCard key={stat.label} value={stat.value} suffix={stat.suffix} label={stat.label} delay={i * 0.15} index={i} icon={stat.icon} />
                     ))}
