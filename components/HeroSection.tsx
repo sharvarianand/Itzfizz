@@ -346,8 +346,8 @@ export default function HeroSection() {
             <div className="relative z-10 flex w-full max-w-7xl flex-col items-center px-6 text-center">
                 <div ref={headline1Ref} className="mb-4 md:mb-2" aria-label="Welcome" style={{ perspective: "800px" }}>
                     <h1
-                        className="font-display font-extrabold tracking-[0.05em] md:tracking-[0.15em]"
-                        style={{ fontSize: "clamp(2rem, 9vw, 7rem)", lineHeight: 1, color: "var(--foreground)" }}
+                        className="font-display font-extrabold tracking-[0.02em] md:tracking-[0.15em]"
+                        style={{ fontSize: "clamp(1.75rem, 8vw, 7rem)", lineHeight: 1, color: "var(--foreground)" }}
                     >
                         {HEADLINE_1.split("").map((ch, i) => (
                             <span key={`w-${i}`} className="headline-letter" style={{ opacity: 0, display: "inline-block" }}>
@@ -357,11 +357,11 @@ export default function HeroSection() {
                     </h1>
                 </div>
 
-                <div ref={headline2Ref} className="mb-12 md:mb-16" aria-label="Itzfizz" style={{ perspective: "800px" }}>
+                <div ref={headline2Ref} className="mb-8 md:mb-16" aria-label="Itzfizz" style={{ perspective: "800px" }}>
                     <h2
-                        className="font-display font-extrabold tracking-[0.05em] md:tracking-[0.15em]"
+                        className="font-display font-extrabold tracking-[0.02em] md:tracking-[0.15em]"
                         style={{
-                            fontSize: "clamp(2.5rem, 11vw, 9rem)", lineHeight: 1,
+                            fontSize: "clamp(2rem, 10vw, 9rem)", lineHeight: 1,
                             color: "var(--accent)", WebkitTextStroke: "max(1px, 0.25vw) var(--foreground)", paintOrder: "stroke fill",
                         }}
                     >
@@ -373,7 +373,7 @@ export default function HeroSection() {
                     </h2>
                 </div>
 
-                <div ref={visualRef} className="visual-card mb-12 w-[90%] w-full max-w-md p-4 md:mb-20 md:max-w-lg md:p-7" style={{ opacity: 0 }} id="visual-element">
+                <div ref={visualRef} className="visual-card mb-10 w-full max-w-sm p-4 md:max-w-md md:mb-16 lg:max-w-lg lg:p-7" style={{ opacity: 0 }} id="visual-element">
                     <div className="mb-4 flex items-center gap-2.5">
                         <div className="h-3.5 w-3.5 rounded-full border-2 border-[var(--foreground)] bg-[var(--accent)]" />
                         <div className="h-3.5 w-3.5 rounded-full border-2 border-[var(--foreground)] bg-[#FFD700]" />
@@ -432,7 +432,7 @@ export default function HeroSection() {
                     </div>
                 </div>
 
-                <div ref={statsRef} className="grid w-full max-w-4xl grid-cols-1 sm:grid-cols-2 gap-3 md:grid-cols-4 md:gap-5" id="stats-container">
+                <div ref={statsRef} className="grid w-full max-w-4xl grid-cols-2 gap-3 md:grid-cols-4 md:gap-5" id="stats-container">
                     {STATS.map((stat, i) => (
                         <StatCard key={stat.label} value={stat.value} suffix={stat.suffix} label={stat.label} delay={i * 0.15} index={i} icon={stat.icon} />
                     ))}
